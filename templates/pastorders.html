@@ -1,0 +1,30 @@
+<html>
+  <h1>Past Orders</h1>
+
+<body>
+{% include "header.html" %}
+        <table>
+            <tr>
+            {% if session["user"] is defined %}
+              <!-- <th>Date and Time</th> -->
+              <th>Code</th><th>Name</th><th>Quantity</th></tr>
+            {% for pastorder in pastorder_list %}
+              <tr>
+                  <!-- <td>{{pastorder["orderdate"]}}</td> -->
+                  <td>{{pastorder["code"]}}</td>
+                  <td>{{pastorder["name"]}}</td>
+                  <td>{{pastorder["qty"]}}</td>
+              </tr>
+        {% endfor %}
+      </table>
+    <!-- if cart is empty -->
+    {% else %}
+    <div> No orders have been made yet </div>
+    <a href="products">Add orders to cart</a>
+    {% endif %}
+
+      <a href = "products">Back to Products</a>
+{% include "footer.html" %}
+
+</body>
+</html>

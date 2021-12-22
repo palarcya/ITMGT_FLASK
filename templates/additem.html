@@ -1,0 +1,15 @@
+# get cart dictionary from session memory
+cart = session["cart"]
+
+code = request.form.get('code')
+
+qty = request.form.get('qty')
+
+...
+
+cart[code]["qty"] = qty
+cart [code]["subtotal"] = qty * product["price"]
+
+...
+# don't forget this
+session["cart"] = cart

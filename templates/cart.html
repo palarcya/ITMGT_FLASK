@@ -1,0 +1,32 @@
+{% include "header.html" %}
+        <h1>Cart</h1>
+            {% if session["cart"] is defined %}
+            <table>
+            <tr><th width="100px">Name</th><th>Qty.</th><th colspan="4">Change Qty.</th><th>Subtotal</th></tr>
+                {% for item in session["cart"].values() %}
+                    <tr><td size="5">{{ item["name"] }}</td>
+                      {% if session["user"] is defined %}
+                        <form action="additem" method="post">
+                          <td>{{ item["qty"] }}</td>
+                          <td><input type="hidden" name="code" value={{ item["code"] }}>
+                              <input type="text" name="qty" size="5" value={{ item["qty"] }}>
+                          </td>
+                          <td colspan="1"><input type="submit" value="Change">
+                          </td>
+                        </form>
+                        <form action="removeitem" method="post">
+                          <td><input type="hidden" name="code" value={{ item["code"] }}><input type="submit" value="Delete"></td>
+                        </form>
+                      {% endif %}
+                      <td colspan="2">{{ item["subtotal"] }}</td></tr>
+                {% endfor %}
+                <tr><td colspan=6><b>Total</b></td><td><b>{{ session["cart"].values()|sum(attribute="subtotal") }}</b></td></tr>
+            </table>
+            <!--checkout-->
+            <a href="checkout">Checkout</a>
+            {% else %}
+            <div>Your cart is empty</div>
+            {% endif %}
+            <a href="pastorders">Past Orders</a>
+            <a href = "products">Back to Products</a>
+{% include "footer.html" %}
